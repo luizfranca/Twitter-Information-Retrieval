@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+
+\usepackage{Twitter-information-retrieval-using-web-crawlers}
+
+
+\usepackage{graphicx,url}
+
+%\usepackage[brazil]{babel}   
+\usepackage[latin1]{inputenc}  
+
+     
+\sloppy
+
+\title{Twitter information retrieval using web crawlers}
+
+\author{Luiz D. R. Fran\c{c}a\inst{1}}
+
+
+\address{Departamento de Estat\'{i}stica e Inform\'{a}tica\\Universidade Federal Rural de Pernambuco
+  (UFRPE)\\
+  Recife -- PE -- Brazil
+  \email{luizdaniel.r.f@gmail.com}
+}
+
+\begin{document} 
+
+\maketitle
+
+\begin{abstract} 
+Twitter is a microblogging service that allows the users share ideas with short messages. The twites (the messages sent on Twitter are called twittes) are limited in length by 140 characters which makes the information extraction and retrieval difficult. This project will extend the RetriBlog framework \cite{Ferreira:13} to make this process easier. 
+\end{abstract}
+
+\section{Introduction}
+Twitter is a social network that allows people to exchange 140-character messages. Nowadays many people use twitter to share their ideas and opinions, even companies use it to show their products and interact with their costumers. With the growth of social networks like Twitter, a huge amount of data is produced everyday, in a single day five hundreds million twitters are sent \cite{NetLiveStats}.  With so much information uploaded everyday, it's very hard to get the most relevant twittes and extract information from it. Messages full of abbreviations and slang and small length of the messages on Twitter makes it even harder to extract relevant information using traditional methods \cite{Sriram:10}.
+\linebreak 
+The information retrieved from Twitter has many applications like predict stock market \cite{Bollen:11} and monitor political sentiment \cite{Bermingham:11}. This project is relevant because it will make easier to explore the richness of information on Twitter. Futhermore it's going to allow the retrieval of relevant information that otherwise would be very difficult to find due to the vastness of the contents uploaded everyday on Twitter. 
+\linebreak
+This project proposal is meant to develop a framework that can retrieve information from Twitter. We are going to extend the RetriBlog framework \cite{Ferreira:13}.
+
+\section{Project Design}
+
+- Twitter Crawler: the crawler will run through the twitter pages and store the links to later be saved.
+- Store Documents: this part will get the links from the crawler and it will save the twittes.
+- Preprocessing: 
+  - Acronyms Expansion: as twittes are only 140-characters long, many people use acronyms on their texts. This module will expand those acronyms to its normal form.
+  - HTML Clean: this part is responsible for removing the html tags
+  - English Stemming: this part will reduce the words to it's lemma. 
+  - Text Expansion: this module will expand the text.
+- Indexing: this module will create an index of the twittes.
+
+
+\section{Related Jobs}
+These are some works related to information retrieval and extraction of information:
+\begin{itemize}
+\item RetriBlog: An architecture-centered framework for developing blog crawlers \cite{Ferreira:13}
+\item Short Text Classification in Twitter to Improve Information Filtering \cite{Sriram:10}
+\item Managing the Acronym/Expansion Identification Process for Text-Mining Applications \cite{Roche:08} 
+\item Part-of-Speech Tagging for Twitter: Annotation, Features, and Experiments \cite{Gimpel:11}
+\item Traffic Condition Information Extraction and Visualization from Social Media Twitter for Android Mobile Application \cite{Endarnoto:11}
+\item Open domain event extraction from twitter \cite{Ritter:12}
+\end{itemize}
+
+\bibliographystyle{Twitter-information-retrieval-using-web-crawlers}
+\bibliography{Twitter-information-retrieval-using-web-crawlers}
+
+\end{document}
