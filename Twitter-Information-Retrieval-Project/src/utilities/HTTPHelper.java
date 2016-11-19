@@ -7,6 +7,9 @@ import java.net.URL;
 
 public class HTTPHelper {
 	
+	/*
+		Code taken from: http://stackoverflow.com/questions/3341516/how-we-can-download-a-html-page-using-java
+	*/
 	public static String getPage(String url) throws IOException {
 		String line = "", page = "";
 	    URL myUrl = null;

@@ -10,28 +10,32 @@ import org.jsoup.select.Elements;
 import Data.Tweet;
 
 public class TweetExtractor {
-	//ArrayList<Tweet>
-	public static void getTweets(String page) {		
-		
-		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+	
+	/*
+	 * May need changes on the content extraction
+	 * it returns the url to the next page
+	*/
+	public static void getTweets(String page, ArrayList<Tweet> tweets) {		
 		
 		Document document = Jsoup.parse(page);
-		Elements divs = document.getElementsByClass("content");
-		System.out.println(divs.size());
-		for (Element div : divs) {
-			Element contentDiv = div.getElementById("js-tweet-text-container");
-			String content = contentDiv.select("p").get(0).ownText();
-			String author = div.getElementsByClass("account-group").get(0).getElementsByAttribute("href").get(0).toString();
-//			Tweet tweet = new Tweet();
-////			System.out.println(div.toString());
-//			Elements text = div.select("p");
-//			for (Element element : text) {
-//				tweet.setContent(element.ownText());
-//				
-//			}
-//			
-		}
-		System.out.println(divs.get(0).toString());
 		
+		Elements divs = document.getElementsByClass("content");
+		
+		for (Element div : divs) {
+			Element contentDiv = div.getElementsByClass("js-tweet-text-container").get(0);
+			Elements insideDiv = contentDiv.select("p");
+			String content = insideDiv.get(0).ownText();
+			
+			Element authorsDiv = div.getElementsByClass("account-group").get(0);
+			String author = authorsDiv.attr("href").substring(1);
+			
+			Element dateDiv = div.getElementsByClass("tweet-timestamp").get(0);
+			String date = dateDiv.attr("title");
+			
+			
+			Tweet tweet = new Tweet(author, content, date);
+			
+			tweets.add(tweet);	
+		}
 	}
 }

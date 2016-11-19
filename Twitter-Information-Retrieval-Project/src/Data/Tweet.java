@@ -5,14 +5,20 @@ public class Tweet {
 	static int idCounter = 0;
 	int id;
 	String author;
-	String url;
 	String content;
 	String date;
 	
 	public Tweet(){
 		this.id = Tweet.idCounter++;
 	}
-
+	
+	public Tweet(String author, String content, String date) {
+		this.id = Tweet.idCounter++;
+		this.author = author;
+		this.content = content;
+		this.date = date;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -28,15 +34,7 @@ public class Tweet {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
+	
 	public String getContent() {
 		return content;
 	}

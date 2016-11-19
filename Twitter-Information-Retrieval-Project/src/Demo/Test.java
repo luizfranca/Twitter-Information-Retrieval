@@ -1,7 +1,9 @@
 package Demo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import Data.Tweet;
 import utilities.HTTPHelper;
 import utilities.TweetExtractor;
 
@@ -13,7 +15,10 @@ public class Test {
 		try {
 			page = HTTPHelper.getPage("https://twitter.com/luizdaniel78");
 //			System.out.println(page);
-			TweetExtractor.getTweets(page);
+			
+			ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+			TweetExtractor.getTweets(page, tweets);		
+			System.out.println(tweets.size());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
