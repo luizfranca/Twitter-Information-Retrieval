@@ -1,9 +1,9 @@
-package Demo;
+package demo;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Data.Tweet;
+import data.Tweet;
 import utilities.HTTPHelper;
 import utilities.TweetExtractor;
 

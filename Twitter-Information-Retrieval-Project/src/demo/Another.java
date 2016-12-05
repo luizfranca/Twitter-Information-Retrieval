@@ -1,9 +1,10 @@
-package Demo;
+package demo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.Paging;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -12,7 +13,13 @@ import twitter4j.conf.ConfigurationBuilder;
 public class Another {
 
 	
-	public static void main(String[] a) {
+	/*
+	 * Code from: http://stackoverflow.com/questions/2943161/get-tweets-of-a-public-twitter-profile
+	 * My keys from twitter dev app
+	 * 
+	 */
+	
+	public static void main(String[] a) throws TwitterException {
 
 	    ConfigurationBuilder cb = new ConfigurationBuilder();
 	    cb.setOAuthConsumerKey("RjlThI9wLbLv4ah8tGjcAsEgb");
@@ -23,9 +30,10 @@ public class Another {
 	    Twitter twitter = new TwitterFactory(cb.build()).getInstance();
 
 	    int pageno = 1;
-	    String user = "tweetsauce";
-	    List statuses = new ArrayList();
-
+	    String user = "nilmoretto";
+	    ArrayList<Status> statuses = new ArrayList<Status>();
+	    
+	    
 	    while (true) {
 
 	      try {
@@ -33,7 +41,7 @@ public class Another {
 	        int size = statuses.size(); 
 	        Paging page = new Paging(pageno++, 100);
 	        statuses.addAll(twitter.getUserTimeline(user, page));
-	        if (statuses.size() == size)
+//	        if (statuses.size() == size)
 	          break;
 	      }
 	      
@@ -42,8 +50,15 @@ public class Another {
 	        e.printStackTrace();
 	      }
 	    }
-
-	    System.out.println("Tweet: "+statuses.get(0).toString());
+	    
+	    
+	    Status s = statuses.get(0);
+	    
+	    System.out.println("Author: " + s.getUser().getScreenName());
+	    System.out.println("Is there: " + s.getText().contains("@"));
+	    System.out.println("Test: " + s.getText().matches("(@\\w*)"));
+	    System.out.println("Text: " + s.getText());
+	    System.out.println("Tweet: "+ s);
 	    System.out.println("Total: "+statuses.size());
 	}
 	
