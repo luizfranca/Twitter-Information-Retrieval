@@ -1,7 +1,6 @@
 package crawler;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,7 +58,9 @@ public class Crawler {
 	public void runCrawler(String starter, int limit) {
 
 		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+		
 		ArrayList<String> tags = new ArrayList<String>();
+		ArrayList<String> allTags = new ArrayList<String>();
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 
@@ -73,7 +74,8 @@ public class Crawler {
 		int counter = 0;
 
 		tags.add(starter);
-
+		allTags.add(starter);
+		
 		do {
 			ArrayList<Status> statuses = getStatuses(tags.get(0));
 
@@ -90,14 +92,21 @@ public class Crawler {
 
 				tweets.add(tweet);
 
-				tags.addAll(getTags(content));
+				ArrayList<String> temp = getTags(content);
+				
+				for (String string : temp) {
+					if (!allTags.contains(string)) {
+						allTags.add(string);
+						tags.add(string);
+					}
+				}
 			}
 
 			System.out.println("End: " + counter);
 		} while (!tags.isEmpty() && counter < limit);
 
 		System.out.println("Number of tweets: " + tweets.size());
-		System.out.println("Number of tags: " + tags.size());
+		System.out.println("Number of tags: " + allTags.size());
 	}
 
 }
