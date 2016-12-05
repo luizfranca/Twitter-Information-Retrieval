@@ -51,4 +51,9 @@ public class Tweet {
 		this.date = date;
 	}
 	
+	@Override
+    public String toString() {
+            return "Tweet [id=" + id + ", author=" + author + ", content="
+                            + content + ", date=" + date + "]";
+    }
 }

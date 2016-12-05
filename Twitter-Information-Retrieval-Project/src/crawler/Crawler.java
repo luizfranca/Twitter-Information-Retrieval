@@ -11,6 +11,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
+import utilities.XMLHelper;
 
 public class Crawler {
 
@@ -49,13 +50,14 @@ public class Crawler {
 			catch (TwitterException e) {
 
 				e.printStackTrace();
+				break;
 			}
 		}
 
 		return statuses;
 	}
 
-	public void runCrawler(String starter, int limit) {
+	public void runCrawler(String starter, int limit) throws Exception {
 
 		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 		
@@ -79,7 +81,7 @@ public class Crawler {
 		do {
 			ArrayList<Status> statuses = getStatuses(tags.get(0));
 
-			tags.remove(0);
+			
 
 			counter++;
 
@@ -102,11 +104,16 @@ public class Crawler {
 				}
 			}
 
-			System.out.println("End: " + counter);
+			System.out.println("End: " + counter + " - User: " + tags.get(0) + " - Number of tweets: " + tweets.size() + " - Number of tags: " + allTags.size());
+			
+			tags.remove(0);
+			
 		} while (!tags.isEmpty() && counter < limit);
 
 		System.out.println("Number of tweets: " + tweets.size());
 		System.out.println("Number of tags: " + allTags.size());
+		
+		XMLHelper.saveTweets(tweets);
 	}
 
 }
