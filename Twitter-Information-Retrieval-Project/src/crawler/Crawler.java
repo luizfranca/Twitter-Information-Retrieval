@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import data.Tweet;
-import persistence.xml.XMLHelper;
+import persistence.xml.XMLPersistence;
 import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -113,7 +113,7 @@ public class Crawler {
 		System.out.println("Number of tweets: " + tweets.size());
 		System.out.println("Number of tags: " + allTags.size());
 		
-		XMLHelper.saveTweets(tweets);
+		XMLPersistence.saveTweets(tweets);
 	}
 
 }
