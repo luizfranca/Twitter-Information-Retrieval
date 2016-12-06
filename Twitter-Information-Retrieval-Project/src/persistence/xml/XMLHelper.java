@@ -1,4 +1,4 @@
-package utilities;
+package persistence.xml;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

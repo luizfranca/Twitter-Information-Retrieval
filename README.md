@@ -7,3 +7,7 @@
 - Expand text
 - Solve acronyms
 - Index tweets
+  - Lexical analysis
+  - Remove stopwords
+  - Stemming
+  - Controlled vocabulary

@@ -9,7 +9,7 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import data.Tweet;
-import utilities.XMLHelper;
+import persistence.xml.XMLHelper;
 
 public class Test2 {
 
@@ -49,6 +49,7 @@ public class Test2 {
 //		for (Tweet tweet : a) {
 //			System.out.println(tweet.toString());
 //		}
+//		System.out.println(Tweet.class.getFields()[0]);
 	}
 
 }
