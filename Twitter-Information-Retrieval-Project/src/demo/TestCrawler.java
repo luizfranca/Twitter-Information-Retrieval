@@ -9,7 +9,7 @@ public class TestCrawler {
 		
 		Crawler c = new Crawler();
 		
-		c.runCrawler("luizdaniel78", 5);
+		c.runCrawler("luizdaniel78", 1);
 	}
 
 }
