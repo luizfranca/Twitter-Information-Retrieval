@@ -9,5 +9,5 @@
 - Index tweets
   - ~~Lexical analysis~~
   - Remove stopwords
-  - Stemming
+  - ~~Lemmatization~~
   - Controlled vocabulary
