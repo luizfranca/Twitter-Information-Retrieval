@@ -8,6 +8,6 @@
 - Solve acronyms
 - Index tweets
   - ~~Lexical analysis~~
-  - Remove stopwords
+  - ~~Remove stopwords~~
   - ~~Lemmatization~~
   - Controlled vocabulary

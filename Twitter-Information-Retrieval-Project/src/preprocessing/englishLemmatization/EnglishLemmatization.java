@@ -1,4 +1,4 @@
-package persistence.englishLemmatization;
+package preprocessing.englishLemmatization;
 
 import java.util.ArrayList;
 import java.util.Properties;

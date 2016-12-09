@@ -1,5 +1,7 @@
 package demo;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,11 +41,13 @@ import gate.persist.PersistenceException;
 import gate.twitter.Normaliser;
 import gate.twitter.tokenizer.TokenizerEN;
 import gate.util.InvalidOffsetException;
-import persistence.englishLemmatization.EnglishLemmatization;
 import persistence.xml.XMLPersistence;
+import preprocessing.englishLemmatization.EnglishLemmatization;
+import preprocessing.stopWordsRemover.StopWordsRemover;
 import preprocessing.tokenizer.Tokenizer;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import edu.stanford.nlp.ling.CoreLabel;
@@ -82,12 +86,12 @@ public class Test2 {
 ////			System.out.println("\n\n\n\n\n\n\n");
 //		}
 
-		String text = "this is a text";
-		
-		System.out.println(Tokenizer.tokenize(text).toString());
-		
-		System.out.println(EnglishLemmatization.getLemmas(text).toString());
-		
+//		String text = "this is a text";
+//		
+//		System.out.println(Tokenizer.tokenize(text).toString());
+//		
+//		System.out.println(EnglishLemmatization.getLemmas(text).toString());
+//		
 //		Properties props = new Properties(); 
 //		
 //        props.put("annotators", "tokenize, ssplit, pos, lemma"); 
@@ -155,6 +159,72 @@ public class Test2 {
 //		System.out.println(a.);
 //		a.addStatusListener(new  );
 		
+		System.out.println(EnglishLemmatization.getLemmas("am").get(0));
+		
+//		File f = 
+//		ArrayList<String> list = new ArrayList<String>();
+//		list.addAll(readFile("stopwordslist.txt"));
+//		ArrayList<String> lemmas = new ArrayList<String>();
+//		for (String string : list) {
+//			ArrayList<String> aux = EnglishLemmatization.getLemmas(string);
+//			for (String string2 : aux) {
+//				if (!lemmas.contains(string2)) {
+//					lemmas.add(string2);
+//				}
+//			}
+//		}
+//		writeFile("test.txt", lemmas);
+//		for (String string : list) {
+//			System.out.println(string);
+//		}
+		
+		String text = "this is a text that I wrote to you";
+		ArrayList<String> tokens = preprocessing.tokenizer.Tokenizer.tokenize(text);
+		ArrayList<String> lemmas = EnglishLemmatization.getLemmas(text);
+		ArrayList<String> results = StopWordsRemover.removeStopWords(lemmas, "stopwordslist.txt");
+		
+		System.out.println(tokens.toString());
+		System.out.println(lemmas.toString());
+		System.out.println(results.toString());
+		
+	}
+	
+	private static List<String> readFile(String filename)
+	{
+	  List<String> records = new ArrayList<String>();
+	  try
+	  {
+	    BufferedReader reader = new BufferedReader(new FileReader(filename));
+	    String line;
+	    while ((line = reader.readLine()) != null)
+	    {
+	      records.add(line);
+	    }
+	    reader.close();
+	    return records;
+	  }
+	  catch (Exception e)
+	  {
+	    System.err.format("Exception occurred trying to read '%s'.", filename);
+	    e.printStackTrace();
+	    return null;
+	  }
 	}
 
+	private static void writeFile(String filename, ArrayList<String> stopwords) {
+		
+		try {
+	
+			BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+			
+			for (String string : stopwords) {
+				writer.write(string + "\n");
+			}
+			
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
