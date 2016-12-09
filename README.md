@@ -11,3 +11,5 @@
   - ~~Remove stopwords~~
   - ~~Lemmatization~~
   - Controlled vocabulary
+  - Clustering
+- Write paper
