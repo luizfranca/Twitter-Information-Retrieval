@@ -19,8 +19,9 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+
+import data.Post;
 import data.Tweet;
-import index.Index;
 
 /*
  * source: http://www.vogella.com/tutorials/JavaXML/article.html#xml_overview
@@ -37,9 +38,13 @@ public class XMLPersistence {
 	
 	static final String INDEX = "index";
 	static final String TERM = "term";
-	static final String FREQUENCY = "frequency";
 	static final String POSTS = "posts";
 	static final String POST = "post";
+	static final String IF_IDF = "if_idf";
+	static final String DOCID = "docID";
+	static final String FREQUENCY = "frequency";
+	
+	
 
 	public static ArrayList<Tweet> readTweet(String fileName) {
 		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
@@ -152,8 +157,8 @@ public class XMLPersistence {
 		eventWriter.close();
 	}
 	
-	public static Map<String, Index> readIndexes(String fileName) {
-		Map<String, Index> indexes = new HashMap<String, Index>();
+	public static Map<String, ArrayList<Post>> readIndexes(String fileName) {
+		Map<String, ArrayList<Post>> indexes = new HashMap<String, ArrayList<Post>>();
 		try {
 			// First, create a new XMLInputFactory
 			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
@@ -161,8 +166,9 @@ public class XMLPersistence {
 			InputStream in = new FileInputStream(fileName);
 			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 			// read the XML document
-			Index index = null;
-			ArrayList<Integer> posts = null;
+
+			Post post = null;
+			ArrayList<Post> posts = null;
 			String term = "";
 			while (eventReader.hasNext()) {
 				XMLEvent event = eventReader.nextEvent();
@@ -170,46 +176,43 @@ public class XMLPersistence {
 				if (event.isStartElement()) {
 					StartElement startElement = event.asStartElement();
 
-					// If we have an item element, we create a new item
-					if (startElement.getName().getLocalPart() == (INDEX)) {
-						index = new Index();
-					}
-
 					if (event.asStartElement().getName().getLocalPart().equals(TERM)) {
 						event = eventReader.nextEvent();
 						term = event.asCharacters().getData();
-						indexes.put(event.asCharacters().getData(), index);
-						continue;
-					}
-
-					if (event.asStartElement().getName().getLocalPart().equals(FREQUENCY)) {
-						event = eventReader.nextEvent();
-						index.setFrequency(Float.parseFloat(event.asCharacters().getData()));
-						continue;
-					}
-					if (event.asStartElement().getName().getLocalPart().equals(FREQUENCY)) {
-						event = eventReader.nextEvent();
-						index.setFrequency(Integer.parseInt(event.asCharacters().getData()));
 						continue;
 					}
 					if (event.asStartElement().getName().getLocalPart().equals(POSTS)) {
 						event = eventReader.nextEvent();
-						posts = new ArrayList<Integer>();
-						index.setPostingsList(posts);
+						posts = new ArrayList<Post>();
+						indexes.put(term, posts);
 						continue;
 					}
 					if (event.asStartElement().getName().getLocalPart().equals(POST)) {
 						event = eventReader.nextEvent();
-						posts.add(Integer.parseInt(event.asCharacters().getData()));
+						post = new Post();
 						continue;
 					}
+
+					if (event.asStartElement().getName().getLocalPart().equals(IF_IDF)) {
+						event = eventReader.nextEvent();
+						post.setTf_idf(Float.parseFloat(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart().equals(DOCID)) {
+						event = eventReader.nextEvent();
+						post.setDocID(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+					
+					
 				}
 				// If we reach the end of an item element, we add it to the list
 				if (event.isEndElement()) {
 
 					EndElement endElement = event.asEndElement();
-					if (endElement.getName().getLocalPart() == (INDEX)) {
-						index = null;
+					if (endElement.getName().getLocalPart() == (POST)) {
+						posts.add(post);
+						post = null;
 					}
 					if (endElement.getName().getLocalPart() == (POSTS)) {
 						posts = null;
@@ -227,7 +230,7 @@ public class XMLPersistence {
 		return indexes;
 	}
 
-	public static void saveIndex(Map<String, Index> indexes, String fileName) throws Exception {
+	public static void saveIndex(Map<String, ArrayList<Post>> indexes, String fileName) throws Exception {
 		// create an XMLOutputFactory
 		XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
 		// create XMLEventWriter
@@ -251,16 +254,20 @@ public class XMLPersistence {
 			// Write the different nodes
 			createNode(eventWriter, "term", term + "");
 			
-			Index index = indexes.get(term);
-			
-			createNode(eventWriter, "frequency", index.getFrequency() + "");
-			
 			StartElement startElementPosts = eventFactory.createStartElement("", "", "posts");
 			eventWriter.add(startElementPosts);
 			eventWriter.add(end);
 			
-			for (int id : index.getPostingsList()) {
-				createNode(eventWriter, "post", id + "");
+			for (Post p : indexes.get(term)) {
+				StartElement startElementPost = eventFactory.createStartElement("", "", "post");
+				eventWriter.add(startElementPost);
+				eventWriter.add(end);
+				
+				createNode(eventWriter, "if_idf", p.getTf_idf() + "");
+				createNode(eventWriter, "docID", p.getDocID() + "");
+				
+				eventWriter.add(eventFactory.createEndElement("", "", "post"));
+				eventWriter.add(end);
 			}
 			
 			eventWriter.add(eventFactory.createEndElement("", "", "posts"));

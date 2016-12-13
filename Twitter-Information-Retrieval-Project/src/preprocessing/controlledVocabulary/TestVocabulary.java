@@ -18,7 +18,7 @@ public class TestVocabulary {
 		System.out.println("Size of corpus: " + corpus.size());
 		System.out.println("Number of terms: " + v.getTerms().size());
 		
-		ArrayList<Integer> freq = new ArrayList<Integer>(v.getTerms().values());
+		ArrayList<Float> freq = new ArrayList<Float>(v.getTerms().values());
 		
 		Collections.sort(freq);
 		

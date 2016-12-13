@@ -14,5 +14,5 @@
   - ~~Index Structure~~
 - ~~Store index~~
 - ~~Load index~~
-- Add tf-idf
+- ~~Add tf-idf~~
 - Write paper

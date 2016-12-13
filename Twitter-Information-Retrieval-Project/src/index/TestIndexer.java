@@ -3,6 +3,7 @@ package index;
 import java.util.ArrayList;
 import java.util.Map;
 
+import data.Post;
 import data.Tweet;
 import persistence.xml.XMLPersistence;
 
@@ -14,13 +15,15 @@ public class TestIndexer {
 		
 //		ArrayList<Tweet> corpus = XMLPersistence.readTweet("tweetsEN.xml");
 
-		Map<String, Index> indexes = XMLPersistence.readIndexes("Indexes.xml");
+		Map<String, ArrayList<Post>> indexes = XMLPersistence.readIndexes("Indexes.xml");
 		indexer.setIndexes(indexes);
 		
 //		indexer.generateIndex(corpus);
 
-		System.out.println(indexer.getIndexes().get("upload").frequency);
-		System.out.println(indexer.getIndexes().get("upload").getPostingsList());
+//		System.out.println(indexer.vocabulary.getTerms().get("upload"));
+	
+		System.out.println(indexer.getIndexes().get("upload").get(0).getTf_idf());
+		System.out.println(indexer.getIndexes().get("upload").get(0).getDocID());
 		
 //		XMLPersistence.saveIndex(indexer.getIndexes(), "Indexes.xml");
 	}
