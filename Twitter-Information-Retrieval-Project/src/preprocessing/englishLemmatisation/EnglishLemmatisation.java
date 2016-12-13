@@ -34,4 +34,32 @@ public class EnglishLemmatisation {
         }
 		return lemmas;
 	}
+	
+public static ArrayList<String> getLemmas(ArrayList<String> tokens) {
+		
+		String text = "";
+	
+		for (String string : tokens) {
+			text += string + " ";
+		}
+		
+		ArrayList<String> lemmas = new ArrayList<String>();
+		
+		Properties props = new Properties(); 
+        props.put("annotators", "tokenize, ssplit, pos, lemma");
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props, false);
+         
+        Annotation document = pipeline.process(text);
+        
+        for(CoreMap sentence: document.get(SentencesAnnotation.class))
+        {   
+            for(CoreLabel token: sentence.get(TokensAnnotation.class))
+            {         
+                String lemma = token.get(LemmaAnnotation.class);
+                
+                lemmas.add(lemma);
+            }
+        }
+		return lemmas;
+	}
 }

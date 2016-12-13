@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
+import crawler.Crawler;
 import data.Tweet;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.TokenizerAnnotator;
@@ -41,8 +42,12 @@ import gate.persist.PersistenceException;
 import gate.twitter.Normaliser;
 import gate.twitter.tokenizer.TokenizerEN;
 import gate.util.InvalidOffsetException;
+import grow.retriblog.preprocessing.englishFiltering.spec.prov.IEnglishFiltering;
+import grow.retriblog.utilities.languageDetect.impl.*;
+import grow.retriblog.utilities.languageDetect.spec.*;
+import grow.retriblog.utilities.languageDetect.spec.prov.*;
 import persistence.xml.XMLPersistence;
-import preprocessing.englishLemmatization.EnglishLemmatization;
+import preprocessing.englishLemmatisation.EnglishLemmatisation;
 import preprocessing.stopWordsRemover.StopWordsRemover;
 import preprocessing.tokenizer.Tokenizer;
 
@@ -64,7 +69,7 @@ import edu.stanford.nlp.ling.CoreAnnotations.*;
 public class Test2 {
 
 	public static void main(String[] args) throws FileNotFoundException, ResourceInstantiationException {
-
+		
 		// ArrayList<String> args = new ArrayList<String>();
 //		args = new String[] { "exemplo de texto para textar o texto @MrNobre https://t.co/ux57Tgi10F", "For me, my bed is the best place in the world followed by Chicago. I miss the time where they were in the same place #exemple #exemple-legal outro,teste,legal,separa,pfv1 aren’t" };
 		
@@ -159,7 +164,6 @@ public class Test2 {
 //		System.out.println(a.);
 //		a.addStatusListener(new  );
 		
-		System.out.println(EnglishLemmatization.getLemmas("am").get(0));
 		
 //		File f = 
 //		ArrayList<String> list = new ArrayList<String>();
@@ -177,16 +181,48 @@ public class Test2 {
 //		for (String string : list) {
 //			System.out.println(string);
 //		}
+		/*
+		String text = "I was very @this_is_a_test #imfucked pleased to know that you liked my show. So if you want to pass on this class, you better find how to do this. You have to make this code work TODAY. Not tomorrow, not the day after tomorrow but today.";
+//		ArrayList<String> tokens = preprocessing.tokenizer.Tokenizer.tokenize(text);
+		ArrayList<String> lemmas = EnglishLemmatisation.getLemmas(text);
+//		ArrayList<String> results = StopWordsRemover.removeStopWords(lemmas, "stopwordslist.txt");
 		
-		String text = "this is a text that I wrote to you";
-		ArrayList<String> tokens = preprocessing.tokenizer.Tokenizer.tokenize(text);
-		ArrayList<String> lemmas = EnglishLemmatization.getLemmas(text);
-		ArrayList<String> results = StopWordsRemover.removeStopWords(lemmas, "stopwordslist.txt");
-		
-		System.out.println(tokens.toString());
+//		System.out.println(tokens.toString());
 		System.out.println(lemmas.toString());
-		System.out.println(results.toString());
+//		System.out.println(results.toString());
+		*/
 		
+//		IManager m = LanguageDetectFactory.getManager();
+//		ILanguageDetect ld = (ILanguageDetect) m.getProvidedInterface();
+////	/*	
+//		System.out.println(ld.detect("Esse texto foi escrito em português"));
+//		System.out.println(ld.detect("And this text was written in English"));
+//		System.out.println(ld.detect("text"));
+////		*/
+//		grow.retriblog.preprocessing.englishFiltering.spec.prov.IManager im =  grow.retriblog.preprocessing.englishFiltering.impl.EnglishFilteringFactory.getManager();
+//		grow.retriblog.preprocessing.englishFiltering.spec.prov.IEnglishFiltering ef = (IEnglishFiltering) im.getProvidedInterface();
+//		
+//		
+//		System.out.println(ef.analyzeString("And this text @luizdaniel78 #tbt was written in English"));	
+//		
+//		ld.getProvidedInterface();
+		
+		
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("A", 0);
+		
+		int n = map.get("A") + 1;
+		map.put("A", n);
+		
+		n = map.get("A") + 1;
+		map.put("A", n);
+		
+		n = map.get("A") + 1;
+		System.out.println(map.get("B"));
+		
+		System.out.println(map.values());
 	}
 	
 	private static List<String> readFile(String filename)

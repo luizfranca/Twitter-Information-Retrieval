@@ -10,6 +10,6 @@
   - ~~Lexical analysis~~
   - ~~Remove stopwords~~
   - ~~Lemmatisation~~
-  - Controlled vocabulary
+  - ~~Controlled vocabulary~~
   - Index Structure
 - Write paper

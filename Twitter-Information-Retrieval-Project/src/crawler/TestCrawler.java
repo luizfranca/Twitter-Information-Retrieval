@@ -1,8 +1,7 @@
-package demo;
+package crawler;
 
 import java.util.ArrayList;
 
-import crawler.Crawler;
 import data.Tweet;
 import persistence.xml.XMLPersistence;
 

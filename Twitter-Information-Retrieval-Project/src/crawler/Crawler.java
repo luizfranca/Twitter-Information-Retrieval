@@ -92,8 +92,6 @@ public class Crawler {
 				String content = status.getText();
 				String date = status.getCreatedAt().toString();
 
-				Tweet tweet = new Tweet(author, content, date);
-
 				ArrayList<String> temp = getTags(content);
 
 				for (String string : temp) {
@@ -107,6 +105,8 @@ public class Crawler {
 					continue;
 				}
 
+				Tweet tweet = new Tweet(author, content, date);
+				
 				tweets.add(tweet);
 			}
 
