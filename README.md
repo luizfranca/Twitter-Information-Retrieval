@@ -12,7 +12,7 @@
   - ~~Lemmatisation~~
   - ~~Controlled vocabulary~~
   - ~~Index Structure~~
-- Store index
+- ~~Store index~~
 - Load index
 - Add tf-idf
 - Write paper

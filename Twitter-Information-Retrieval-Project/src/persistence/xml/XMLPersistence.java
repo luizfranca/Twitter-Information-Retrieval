@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Map;
+
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLEventWriter;
@@ -17,6 +19,7 @@ import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import data.Tweet;
+import index.Index;
 
 /*
  * source: http://www.vogella.com/tutorials/JavaXML/article.html#xml_overview
@@ -44,7 +47,7 @@ public class XMLPersistence {
 
 			while (eventReader.hasNext()) {
 				XMLEvent event = eventReader.nextEvent();
-				
+
 				if (event.isStartElement()) {
 					StartElement startElement = event.asStartElement();
 
@@ -75,16 +78,16 @@ public class XMLPersistence {
 						continue;
 					}
 
-				} 
+				}
 				// If we reach the end of an item element, we add it to the list
 				if (event.isEndElement()) {
-					
+
 					EndElement endElement = event.asEndElement();
 					if (endElement.getName().getLocalPart() == (TWEET)) {
-						
+
 						tweets.add(tweet);
 					}
-					
+
 				}
 
 			}
@@ -108,7 +111,7 @@ public class XMLPersistence {
 		// create and write Start Tag
 		StartDocument startDocument = eventFactory.createStartDocument();
 		eventWriter.add(startDocument);
-		
+
 		eventWriter.add(end);
 		StartElement startDoc = eventFactory.createStartElement("", "", "tweets");
 		eventWriter.add(startDoc);
@@ -126,12 +129,60 @@ public class XMLPersistence {
 
 			eventWriter.add(eventFactory.createEndElement("", "", "tweet"));
 			eventWriter.add(end);
-			
 
 		}
-		
+
 		eventWriter.add(eventFactory.createEndDocument());
-		
+
+		eventWriter.close();
+	}
+
+	public static void saveIndex(Map<String, Index> indexes, String fileName) throws Exception {
+		// create an XMLOutputFactory
+		XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+		// create XMLEventWriter
+		XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream(fileName));
+		// create an EventFactory
+		XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+		XMLEvent end = eventFactory.createDTD("\n");
+		// create and write Start Tag
+		StartDocument startDocument = eventFactory.createStartDocument();
+		eventWriter.add(startDocument);
+
+		eventWriter.add(end);
+		StartElement startDoc = eventFactory.createStartElement("", "", "indexes");
+		eventWriter.add(startDoc);
+		eventWriter.add(end);
+		for (String term : indexes.keySet()) {
+			// create config open tag
+			StartElement startElement = eventFactory.createStartElement("", "", "index");
+			eventWriter.add(startElement);
+			eventWriter.add(end);
+			// Write the different nodes
+			createNode(eventWriter, "term", term + "");
+			
+			Index index = indexes.get(term);
+			
+			createNode(eventWriter, "frequency", index.getFrequency() + "");
+			
+			StartElement startElementPosts = eventFactory.createStartElement("", "", "posts");
+			eventWriter.add(startElement);
+			eventWriter.add(end);
+			
+			for (int id : index.getPostingsList()) {
+				createNode(eventWriter, "post", id + "");
+			}
+			
+			eventWriter.add(eventFactory.createEndElement("", "", "posts"));
+			eventWriter.add(end);
+
+			eventWriter.add(eventFactory.createEndElement("", "", "index"));
+			eventWriter.add(end);
+
+		}
+
+		eventWriter.add(eventFactory.createEndDocument());
+
 		eventWriter.close();
 	}
 

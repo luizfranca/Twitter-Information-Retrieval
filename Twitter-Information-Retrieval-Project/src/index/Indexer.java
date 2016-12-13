@@ -10,11 +10,11 @@ import preprocessing.controlledVocabulary.Vocabulary;
 
 public class Indexer {
 
-	Map<String, Index> index;
+	Map<String, Index> indexes;
 	Vocabulary vocabulary;
 	
 	public Indexer() {
-		this.index = new HashMap<String, Index>();	
+		this.indexes = new HashMap<String, Index>();	
 		this.vocabulary = new Vocabulary();
 	}
 	
@@ -24,7 +24,7 @@ public class Indexer {
 		
 		for (String term : this.vocabulary.getTerms().keySet()) {
 			Index i = new Index();
-			this.index.put(term, i);
+			this.indexes.put(term, i);
 			
 			i.frequency = this.vocabulary.getTerms().get(term);
 			
@@ -38,6 +38,6 @@ public class Indexer {
 	}
 	
 	public Map<String, Index> getIndex() {
-		return this.index;
+		return this.indexes;
 	}
 }

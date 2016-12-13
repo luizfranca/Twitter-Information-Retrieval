@@ -7,7 +7,7 @@ import persistence.xml.XMLPersistence;
 
 public class TestIndexer {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		Indexer indexer = new Indexer();
 		
@@ -16,6 +16,8 @@ public class TestIndexer {
 		indexer.generateIndex(corpus);
 
 		System.out.println(indexer.getIndex().get("I").frequency);
+		
+		XMLPersistence.saveIndex(indexer.getIndex(), "Indexes.xml");
 	}
 
 }
