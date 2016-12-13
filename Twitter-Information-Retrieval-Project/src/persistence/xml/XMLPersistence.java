@@ -31,21 +31,20 @@ public class XMLPersistence {
 	static final String DATE = "date";
 	static final String TWEET = "tweet";
 
-	public static ArrayList<Tweet> readTweet() {
+	public static ArrayList<Tweet> readTweet(String fileName) {
 		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 		try {
 			// First, create a new XMLInputFactory
 			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			// Setup a new eventReader
-			InputStream in = new FileInputStream("tweets.xml");
+			InputStream in = new FileInputStream(fileName);
 			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 			// read the XML document
 			Tweet tweet = null;
-//			System.out.println(eventReader.nextEvent().toString());
+
 			while (eventReader.hasNext()) {
 				XMLEvent event = eventReader.nextEvent();
 				
-//				System.out.println(event.toString());
 				if (event.isStartElement()) {
 					StartElement startElement = event.asStartElement();
 
@@ -98,11 +97,11 @@ public class XMLPersistence {
 		return tweets;
 	}
 
-	public static void saveTweets(ArrayList<Tweet> tweets) throws Exception {
+	public static void saveTweets(ArrayList<Tweet> tweets, String fileName) throws Exception {
 		// create an XMLOutputFactory
 		XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
 		// create XMLEventWriter
-		XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream("tweets.xml"));
+		XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream(fileName));
 		// create an EventFactory
 		XMLEventFactory eventFactory = XMLEventFactory.newInstance();
 		XMLEvent end = eventFactory.createDTD("\n");
@@ -130,8 +129,6 @@ public class XMLPersistence {
 			
 
 		}
-//		StartElement endDoc = eventFactory.createStartElement("", "", "tweets");
-//		eventWriter.add(endDoc);
 		
 		eventWriter.add(eventFactory.createEndDocument());
 		

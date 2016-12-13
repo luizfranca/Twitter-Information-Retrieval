@@ -9,7 +9,7 @@
 - Index tweets
   - ~~Lexical analysis~~
   - ~~Remove stopwords~~
-  - ~~Lemmatization~~
+  - ~~Lemmatisation~~
   - Controlled vocabulary
-  - Clustering
+  - Index Structure
 - Write paper
