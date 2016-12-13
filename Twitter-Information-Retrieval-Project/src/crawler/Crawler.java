@@ -110,8 +110,8 @@ public class Crawler {
 				tweets.add(tweet);
 			}
 
-//			System.out.println("End: " + counter + " - User: " + tags.get(0) + " - Number of tweets: " + tweets.size()
-//					+ " - Number of tags: " + allTags.size());
+			System.out.println("End: " + counter + " - User: " + tags.get(0) + " - Number of tweets: " + tweets.size()
+					+ " - Number of tags: " + allTags.size());
 
 			tags.remove(0);
 

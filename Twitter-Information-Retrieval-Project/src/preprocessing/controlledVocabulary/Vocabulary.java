@@ -6,6 +6,7 @@ import java.util.Map;
 
 import data.Tweet;
 import preprocessing.englishLemmatisation.EnglishLemmatisation;
+import preprocessing.preprocessEnglish.PreprocessEnglish;
 import preprocessing.stopWordsRemover.StopWordsRemover;
 import preprocessing.tokenizer.Tokenizer;
 
@@ -22,22 +23,11 @@ public class Vocabulary {
 		this.terms = new HashMap<String, Float>();
 	}
 	
-	private ArrayList<String> preprocess(String text) {
-		
-		ArrayList<String> tokens = Tokenizer.tokenize(text);
-		
-		ArrayList<String> tokenNoStopWords = StopWordsRemover.removeStopWords(tokens, "stopwordslistOrigianl.txt");
-		
-		ArrayList<String> lemmas = EnglishLemmatisation.getLemmas(tokenNoStopWords);
-		
-		return lemmas;
-	}
-	
 	public void process(ArrayList<Tweet> corpus) {
 		int numDocuments = corpus.size();
 		
 		for (Tweet tweet : corpus) {
-			ArrayList<String> terms = preprocess(tweet.getContent());
+			ArrayList<String> terms = PreprocessEnglish.preprocess(tweet.getContent());
 			
 			tweet.setAnalyzed(terms);
 			

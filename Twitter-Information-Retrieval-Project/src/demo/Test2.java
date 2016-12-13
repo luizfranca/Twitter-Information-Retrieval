@@ -66,9 +66,18 @@ import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.ling.*; 
 import edu.stanford.nlp.ling.CoreAnnotations.*; 
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+
 public class Test2 {
 
-	public static void main(String[] args) throws FileNotFoundException, ResourceInstantiationException {
+	private static Logger log = LoggerFactory.getLogger(Test2.class);
+	
+	
+	public static void main(String[] args) throws ResourceInstantiationException, IOException {
 		
 		// ArrayList<String> args = new ArrayList<String>();
 //		args = new String[] { "exemplo de texto para textar o texto @MrNobre https://t.co/ux57Tgi10F", "For me, my bed is the best place in the world followed by Chicago. I miss the time where they were in the same place #exemple #exemple-legal outro,teste,legal,separa,pfv1 aren’t" };
@@ -206,6 +215,48 @@ public class Test2 {
 //		System.out.println(ef.analyzeString("And this text @luizdaniel78 #tbt was written in English"));	
 //		
 //		ld.getProvidedInterface();
+		// Gets Path to Text file
+//        String filePath = new ClassPathResource("raw_sentences.txt").getFile().getAbsolutePath();
+//		String filePath = "raw_sentences.txt";
+//        log.info("Load & Vectorize Sentences....");
+//        // Strip white space before and after for each line
+//        SentenceIterator iter = new BasicLineIterator(filePath);
+//        // Split on white spaces in the line to get words
+//        TokenizerFactory t = new DefaultTokenizerFactory();
+//
+//        /*
+//            CommonPreprocessor will apply the following regex to each token: [\d\.:,"'\(\)\[\]|/?!;]+
+//            So, effectively all numbers, punctuation symbols and some special symbols are stripped off.
+//            Additionally it forces lower case for all tokens.
+//         */
+//        t.setTokenPreProcessor(new CommonPreprocessor());
+//
+//        log.info("Building model....");
+//        Word2Vec vec = new Word2Vec.Builder()
+//                .minWordFrequency(5)
+//                .iterations(1)
+//                .layerSize(100)
+//                .seed(42)
+//                .windowSize(5)
+//                .iterate(iter)
+//                .tokenizerFactory(t)
+//                .build();
+//                
+//
+//        log.info("Fitting Word2Vec model....");
+//        vec.fit();
+//
+//        log.info("Writing word vectors to text file....");
+//
+//        // Write word vectors to file
+//        WordVectorSerializer.writeWordVectors(vec, "pathToWriteto.txt");
+//
+//        // Prints out the closest 10 words to "day". An example on what to do with these Word Vectors.
+//        log.info("Closest Words:");
+//        Collection<String> lst = vec.wordsNearest("house", 10);
+//        System.out.println("10 Words closest to 'day': " + lst);
+
+		
 	}
 	
 	private static List<String> readFile(String filename)

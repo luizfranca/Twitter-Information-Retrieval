@@ -35,11 +35,25 @@ public class StopWordsRemover {
 		ArrayList<String> results = new ArrayList<String>();
 		
 		for (String token : tokens) {
-			if (!stopWords.contains(token)) {
+			if (isNumeric(token)) {
+				continue;
+			} else if (isPunctuation(token)) {
+				continue;
+			} else if (!stopWords.contains(token)) {
 				results.add(token);
 			}
 		}
 		
 		return results;
 	}
+	
+	public static boolean isNumeric(String s) {  
+	    return s.matches("[-+]?\\d*\\.?\\d+");  
+	} 
+	
+	public static boolean isPunctuation(String s) {  
+	    return s.matches("\\p{Punct}*");  
+	}  
+	
+	
 }
