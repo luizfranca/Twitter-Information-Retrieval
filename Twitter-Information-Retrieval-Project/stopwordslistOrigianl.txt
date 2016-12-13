@@ -72,7 +72,9 @@ come
 can't
 cannot
 could
-couldn't
+n't
+I
+i
 d
 differ
 different
@@ -539,3 +541,13 @@ uses
 very
 .
 ,
+!
+?
+;
+:
++
+-
+=
+%
+$
+#

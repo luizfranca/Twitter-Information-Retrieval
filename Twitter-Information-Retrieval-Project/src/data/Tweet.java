@@ -63,6 +63,10 @@ public class Tweet {
 		this.analyzed = analyzed;
 	}
 
+	public static void setIdCounter(int idCounter) {
+		Tweet.idCounter = idCounter;
+	}
+
 	@Override
     public String toString() {
             return "Tweet [id=" + id + ", author=" + author + ", content="

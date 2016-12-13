@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.stream.XMLEventFactory;
@@ -33,6 +34,12 @@ public class XMLPersistence {
 	static final String CONTENT = "content";
 	static final String DATE = "date";
 	static final String TWEET = "tweet";
+	
+	static final String INDEX = "index";
+	static final String TERM = "term";
+	static final String FREQUENCY = "frequency";
+	static final String POSTS = "posts";
+	static final String POST = "post";
 
 	public static ArrayList<Tweet> readTweet(String fileName) {
 		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
@@ -58,7 +65,12 @@ public class XMLPersistence {
 						// attribute to our object
 
 					}
-
+					
+					if (event.asStartElement().getName().getLocalPart().equals(ID)) {
+						event = eventReader.nextEvent();
+						tweet.setId(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
 					if (event.isStartElement()) {
 						if (event.asStartElement().getName().getLocalPart().equals(AUTHOR)) {
 							event = eventReader.nextEvent();
@@ -97,6 +109,9 @@ public class XMLPersistence {
 			e.printStackTrace();
 			System.out.println("Error");
 		}
+		
+		Tweet.setIdCounter(tweets.get(tweets.size() - 1).getId() + 1);
+		
 		return tweets;
 	}
 
@@ -136,6 +151,81 @@ public class XMLPersistence {
 
 		eventWriter.close();
 	}
+	
+	public static Map<String, Index> readIndexes(String fileName) {
+		Map<String, Index> indexes = new HashMap<String, Index>();
+		try {
+			// First, create a new XMLInputFactory
+			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+			// Setup a new eventReader
+			InputStream in = new FileInputStream(fileName);
+			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+			// read the XML document
+			Index index = null;
+			ArrayList<Integer> posts = null;
+			String term = "";
+			while (eventReader.hasNext()) {
+				XMLEvent event = eventReader.nextEvent();
+
+				if (event.isStartElement()) {
+					StartElement startElement = event.asStartElement();
+
+					// If we have an item element, we create a new item
+					if (startElement.getName().getLocalPart() == (INDEX)) {
+						index = new Index();
+					}
+
+					if (event.asStartElement().getName().getLocalPart().equals(TERM)) {
+						event = eventReader.nextEvent();
+						term = event.asCharacters().getData();
+						indexes.put(event.asCharacters().getData(), index);
+						continue;
+					}
+
+					if (event.asStartElement().getName().getLocalPart().equals(FREQUENCY)) {
+						event = eventReader.nextEvent();
+						index.setFrequency(Float.parseFloat(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart().equals(FREQUENCY)) {
+						event = eventReader.nextEvent();
+						index.setFrequency(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart().equals(POSTS)) {
+						event = eventReader.nextEvent();
+						posts = new ArrayList<Integer>();
+						index.setPostingsList(posts);
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart().equals(POST)) {
+						event = eventReader.nextEvent();
+						posts.add(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+				}
+				// If we reach the end of an item element, we add it to the list
+				if (event.isEndElement()) {
+
+					EndElement endElement = event.asEndElement();
+					if (endElement.getName().getLocalPart() == (INDEX)) {
+						index = null;
+					}
+					if (endElement.getName().getLocalPart() == (POSTS)) {
+						posts = null;
+					}
+
+				}
+
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			System.out.println("Error");
+		}
+		return indexes;
+	}
 
 	public static void saveIndex(Map<String, Index> indexes, String fileName) throws Exception {
 		// create an XMLOutputFactory
@@ -166,7 +256,7 @@ public class XMLPersistence {
 			createNode(eventWriter, "frequency", index.getFrequency() + "");
 			
 			StartElement startElementPosts = eventFactory.createStartElement("", "", "posts");
-			eventWriter.add(startElement);
+			eventWriter.add(startElementPosts);
 			eventWriter.add(end);
 			
 			for (int id : index.getPostingsList()) {

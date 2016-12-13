@@ -206,18 +206,6 @@ public class Test2 {
 //		System.out.println(ef.analyzeString("And this text @luizdaniel78 #tbt was written in English"));	
 //		
 //		ld.getProvidedInterface();
-		
-		
-		
-		ArrayList<String> animals = new ArrayList<String>();
-		animals.add("bat");
-		animals.add("owl");
-		animals.add("bat");
-		animals.add("bat");
-		
-		int occurrences = Collections.frequency(animals, "baat");
-		
-		System.out.println(occurrences);
 	}
 	
 	private static List<String> readFile(String filename)

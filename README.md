@@ -13,6 +13,6 @@
   - ~~Controlled vocabulary~~
   - ~~Index Structure~~
 - ~~Store index~~
-- Load index
+- ~~Load index~~
 - Add tf-idf
 - Write paper

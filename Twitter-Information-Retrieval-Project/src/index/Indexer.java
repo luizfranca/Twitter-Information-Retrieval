@@ -36,8 +36,12 @@ public class Indexer {
 			}
 		}
 	}
-	
-	public Map<String, Index> getIndex() {
-		return this.indexes;
+
+	public Map<String, Index> getIndexes() {
+		return indexes;
+	}
+
+	public void setIndexes(Map<String, Index> indexes) {
+		this.indexes = indexes;
 	}
 }
