@@ -209,20 +209,15 @@ public class Test2 {
 		
 		
 		
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		ArrayList<String> animals = new ArrayList<String>();
+		animals.add("bat");
+		animals.add("owl");
+		animals.add("bat");
+		animals.add("bat");
 		
-		map.put("A", 0);
+		int occurrences = Collections.frequency(animals, "baat");
 		
-		int n = map.get("A") + 1;
-		map.put("A", n);
-		
-		n = map.get("A") + 1;
-		map.put("A", n);
-		
-		n = map.get("A") + 1;
-		System.out.println(map.get("B"));
-		
-		System.out.println(map.values());
+		System.out.println(occurrences);
 	}
 	
 	private static List<String> readFile(String filename)

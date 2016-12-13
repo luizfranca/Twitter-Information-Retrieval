@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 public class Tweet {
 	
 	static int idCounter = 0;
@@ -7,6 +9,8 @@ public class Tweet {
 	String author;
 	String content;
 	String date;
+	
+	ArrayList<String> analyzed;
 	
 	public Tweet(){
 		this.id = Tweet.idCounter++;
@@ -51,6 +55,14 @@ public class Tweet {
 		this.date = date;
 	}
 	
+	public ArrayList<String> getAnalyzed() {
+		return analyzed;
+	}
+
+	public void setAnalyzed(ArrayList<String> analyzed) {
+		this.analyzed = analyzed;
+	}
+
 	@Override
     public String toString() {
             return "Tweet [id=" + id + ", author=" + author + ", content="

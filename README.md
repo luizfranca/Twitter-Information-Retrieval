@@ -6,10 +6,13 @@
 - ~~Load tweets~~
 - Expand text
 - Solve acronyms
-- Index tweets
+- ~~Index tweets~~
   - ~~Lexical analysis~~
   - ~~Remove stopwords~~
   - ~~Lemmatisation~~
   - ~~Controlled vocabulary~~
-  - Index Structure
+  - ~~Index Structure~~
+- Store index
+- Load index
+- Add tf-idf
 - Write paper

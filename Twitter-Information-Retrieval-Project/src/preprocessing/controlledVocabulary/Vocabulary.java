@@ -10,6 +10,10 @@ import preprocessing.stopWordsRemover.StopWordsRemover;
 import preprocessing.tokenizer.Tokenizer;
 
 public class Vocabulary {
+	
+	/*
+	 * https://github.com/vdurmont/emoji-java/blob/master/LICENSE.md
+	 */
 
 	Map<String, Integer> terms;
 	
@@ -31,6 +35,8 @@ public class Vocabulary {
 	public void process(ArrayList<Tweet> corpus) {
 		for (Tweet tweet : corpus) {
 			ArrayList<String> terms = preprocess(tweet.getContent());
+			
+			tweet.setAnalyzed(terms);
 			
 			for (String term : terms) {
 				Integer freq = this.terms.get(term); 
