@@ -1,8 +1,8 @@
 # Twitter Information Retrieval Framework
 
-The project code is under the **Twitter-Information-Retrieval-Project directory**
+The project code is under the **Twitter-Information-Retrieval-Project** directory
 
-The report is under **Paper folder**
+The report is under **Paper** directory
 
 ###To run this code the following libs are needed:
 - stanford-corenlp-3.7.0-models.jar
