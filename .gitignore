@@ -21,5 +21,4 @@
 *.mtc1
 *.out
 *.synctex.gz
-*.xml
 stanford-corenlp-3.7.0-models.jar
