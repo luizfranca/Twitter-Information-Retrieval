@@ -1,6 +1,6 @@
 # Twitter Information Retrieval Framework
 
-###The project code is under the **Twitter-Information-Retrieval-Project directory**
+The project code is under the **Twitter-Information-Retrieval-Project directory**
 
 The report is under **Paper folder**
 
