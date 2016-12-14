@@ -17,3 +17,5 @@
 - ~~Add tf-idf~~
 - ~~Search~~
 - ~~Write paper~~
+
+Link to the [README](README.md)

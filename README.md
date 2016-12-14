@@ -18,3 +18,5 @@ This project comes with two data example for the indexes and the twittes. They a
 6. TestCrawler.java
 7. TestIndexer.java
 8. TestSearc
+
+Link to the [todo list](NextStep.md)
