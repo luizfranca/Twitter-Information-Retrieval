@@ -11,18 +11,23 @@
     <bpmn:subProcess id="SubProcess_0q7ofgi" name="Preprocessing">
       <bpmn:incoming>SequenceFlow_0603k24</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_17bvbh9</bpmn:outgoing>
-      <bpmn:task id="Task_14zhk1o" name="Acronyms Expansion" />
-      <bpmn:task id="Task_0mh82r9" name="White Space Remover" />
-      <bpmn:task id="Task_0cm4r4m" name="HTML Clean" />
-      <bpmn:task id="Task_022iv7q" name="English Stemming" />
-      <bpmn:task id="Task_1kodeft" name="Text Expansion" />
+      <bpmn:task id="Task_14zhk1o" name="Lexical Analysis " />
+      <bpmn:task id="Task_0mh82r9" name="Stop Words Remover" />
+      <bpmn:task id="Task_0cm4r4m" name="Lemmatisation" />
+      <bpmn:task id="Task_022iv7q" name="Language Detection" />
+      <bpmn:task id="Task_1kodeft" name="Controlled Vocabulary" />
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="SequenceFlow_026qgx9" sourceRef="Task_1faqh7a" targetRef="Task_1dwwz7c" />
     <bpmn:sequenceFlow id="SequenceFlow_0603k24" sourceRef="Task_1dwwz7c" targetRef="SubProcess_0q7ofgi" />
     <bpmn:task id="Task_0r3juxo" name="Indexing">
       <bpmn:incoming>SequenceFlow_17bvbh9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0e4buu8</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="SequenceFlow_17bvbh9" sourceRef="SubProcess_0q7ofgi" targetRef="Task_0r3juxo" />
+    <bpmn:task id="Task_0swkbvy" name="Search">
+      <bpmn:incoming>SequenceFlow_0e4buu8</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_0e4buu8" sourceRef="Task_0r3juxo" targetRef="Task_0swkbvy" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
@@ -74,6 +79,16 @@
       <bpmndi:BPMNShape id="Task_1kodeft_di" bpmnElement="Task_1kodeft">
         <dc:Bounds x="661" y="286" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0swkbvy_di" bpmnElement="Task_0swkbvy">
+        <dc:Bounds x="1189.4600760456274" y="231" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0e4buu8_di" bpmnElement="SequenceFlow_0e4buu8">
+        <di:waypoint xsi:type="dc:Point" x="1111" y="271" />
+        <di:waypoint xsi:type="dc:Point" x="1189" y="271" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1150" y="246" width="0" height="0" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

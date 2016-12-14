@@ -539,6 +539,10 @@ use
 used
 uses
 very
+this
+that
+those
+these
 .
 ,
 !

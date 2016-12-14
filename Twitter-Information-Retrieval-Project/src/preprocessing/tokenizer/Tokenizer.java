@@ -15,6 +15,8 @@ public class Tokenizer {
 		
 		String result = EmojiParser.removeAllEmojis(text);
 		
+		result = result.toLowerCase();
+		
 		StringReader stringReader = new StringReader(result);
 		
 		PTBTokenizer<CoreLabel> ptbt = new PTBTokenizer<>(stringReader, new CoreLabelTokenFactory(), "");

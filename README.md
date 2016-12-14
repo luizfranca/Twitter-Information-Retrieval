@@ -16,4 +16,4 @@
 - ~~Load index~~
 - ~~Add tf-idf~~
 - ~~Search~~
-- Write paper
+- ~~Write paper~~

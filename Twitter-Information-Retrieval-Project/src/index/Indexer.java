@@ -88,7 +88,9 @@ public class Indexer {
 		Collections.sort(result, new Comparator<Tweet>() {
 			@Override
 			public int compare(Tweet o1, Tweet o2) {
-				return (int) (aux.get(o1.getId()) - aux.get(o2.getId()));
+				
+				int compare = Double.compare(aux.get(o1.getId()), aux.get(o2.getId()));
+				return compare;
 			}
 
 	    });

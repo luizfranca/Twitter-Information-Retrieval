@@ -17,11 +17,11 @@ public class TestCrawler {
 
 		Crawler c = new Crawler(oAuthConsumerKey, oAuthConsumerSecret, oAuthAccessToken, oAuthAccessTokenSecret);
 
-		ArrayList<Tweet> tweets = c.runCrawlerByUser("jakerawr", 20);
+		ArrayList<Tweet> tweets = c.runCrawlerByUser("jakerawr", 1); // the twitter user
 		
 		System.out.println(tweets.size());
 		
-		XMLPersistence.saveTweets(tweets, "tweetsEN20.xml");
+		XMLPersistence.saveTweets(tweets, "tweetsEN.xml");
 	}
 
 }

@@ -35,7 +35,7 @@ public class EnglishLemmatisation {
 		return lemmas;
 	}
 	
-public static ArrayList<String> getLemmas(ArrayList<String> tokens) {
+	public static ArrayList<String> getLemmas(ArrayList<String> tokens) {
 		
 		String text = "";
 	
